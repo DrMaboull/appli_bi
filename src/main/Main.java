@@ -18,6 +18,18 @@ import promethee.*;
 public class Main {
 
         public static void main(String[] args) {
+                
+                /**
+                 * DESCRIPTION OF THE FILE :
+                 * 
+                 * 2 PROMETHEE CALL
+                 *      - 1 without preference
+                 *      - 1 with preference valur
+                 *      
+                 * 1 ELECTREIV CALL (concordance : 0.65; veto : 2)
+                 * 
+                 * 1 ELECTREIS CALL (concordance : 0.65; veto : 2, indifference limit : 1.5)
+                 */
 
                 // creation of criteria list
                 List<Criteria> criteria = new ArrayList<Criteria>();
@@ -115,7 +127,7 @@ public class Main {
                 electre.calculElectre();
                 electre.dispay();
                 
-                System.out.println();System.out.println("/// ------------------------ ///");System.out.println();
+                System.out.println();System.out.println();System.out.println("/// ------------------------ ///");System.out.println();
                 
                 
                 /**

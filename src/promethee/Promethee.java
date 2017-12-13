@@ -11,8 +11,7 @@ import java.util.List;
 import entries.*;
 
 /**
- * Class Promethee
- * used to realize all calculs and displays for promethee method
+ * Class Promethee used to realize all calculs and displays for promethee method
  * 
  * @author remy
  *
@@ -28,6 +27,7 @@ public class Promethee {
 
         /**
          * Constructor with DataTable and preference value
+         * 
          * @param data
          * @param preference
          */
@@ -49,11 +49,9 @@ public class Promethee {
                 this.preference = preference;
         }
 
-        
         /**
-         * Display fonction
-         * display all informations of promethee method
-         * call orderByPhi() to display phi(s) informations
+         * Display fonction display all informations of promethee method call
+         * orderByPhi() to display phi(s) informations
          */
         public void display() {
                 System.out.println("Affichage de la matrice de promethee");
@@ -66,7 +64,7 @@ public class Promethee {
                                         System.out.print("----");
                                 else if (d == (double) 0)
                                         System.out.print("0.00");
-                                else  {
+                                else {
                                         NumberFormat nf = new DecimalFormat("0.##");
                                         System.out.print(nf.format(d));
                                 }
@@ -81,10 +79,8 @@ public class Promethee {
                 this.orderByPhis();
         }
 
-        
         /**
-         * calculPromethee method
-         * lunched by main to throw calculs
+         * calculPromethee method lunched by main to throw calculs
          */
         public void calculPromethee() {
 
@@ -98,7 +94,7 @@ public class Promethee {
         }
 
         /**
-         *  Promethee loop for all combinaisons of peoples
+         * Promethee loop for all combinaisons of peoples
          */
         public void prometheeTableCalcul() {
                 int i = 0, j = 0;
@@ -118,13 +114,15 @@ public class Promethee {
                 }
         }
 
-        
         /**
-         * the method get
+         * the method gets 2 peoples list with their weight for each criteria and the
+         * ciiteria list the method has to calculate the domination value of first over
+         * second different process according to preference value
+         * 
          * @param first
          * @param second
          * @param criterias
-         * @return
+         * @return Double
          */
         public Double calculTwoRows(List<Double> first, List<Double> second, List<Criteria> criterias) {
                 Double result = (double) 0;
@@ -144,23 +142,21 @@ public class Promethee {
                         if ((criterias.get(i).getMaximize() == true) && (first.get(i) > second.get(i))) {
                                 if ((first.get(i) - second.get(i)) < this.preference)
                                         result += criterias.get(i).getWeight() * (first.get(i) - second.get(i))
-                                        / this.preference;
+                                                        / this.preference;
                                 else
                                         result += criterias.get(i).getWeight();
 
                         } else if ((criterias.get(i).getMaximize() == false) && (first.get(i) < second.get(i))) {
                                 if ((second.get(i) - first.get(i)) < this.preference)
                                         result += criterias.get(i).getWeight() * (second.get(i) - first.get(i))
-                                        / this.preference;
+                                                        / this.preference;
                                 else
                                         result += criterias.get(i).getWeight();
                         }
-                        
+
                         if (result < 0)
                                 System.out.println(result);
-                                
                 }
-
                 return result;
         }
 
@@ -175,6 +171,10 @@ public class Promethee {
                 this.promethee_table.get(i).set(j, value);
         }
 
+        
+        /**
+         * calcul of phi+ value for each people
+         */
         public void phiPlusCalcul() {
                 Iterator<List<Double>> it = this.promethee_table.iterator();
                 List<Double> current_list;
@@ -189,6 +189,10 @@ public class Promethee {
                 }
         }
 
+        
+        /**
+         * calcul of phi+ value for each people
+         */
         public void phiMoinsCalcul() {
                 int column = 0, row = 0;
                 Double temp = (double) 0;
@@ -203,20 +207,28 @@ public class Promethee {
                 }
         }
 
+        
+        /**
+         * calcul of phi value for each people
+         */
         public void phiCalcul() {
                 for (int i = 0; i < this.size; i++) {
                         this.phi.add(this.phi_plus.get(i) - this.phi_moins.get(i));
                 }
         }
 
+        
+        /**
+         * in charge of displaying phis informations and the winner
+         */
         public void orderByPhis() {
                 System.out.print("Best of Phi + : ");
                 System.out.println("Individu " + this.phi_plus.indexOf(Collections.max(this.phi_plus)));
 
                 System.out.print("Best of Phi - : ");
                 System.out.println("Individu " + this.phi_moins.indexOf(Collections.min(this.phi_moins)));
-                
-                System.out.println("Le gagnant par promethée est : " + this.data.getPeople_list().get(this.phi.indexOf(Collections.max(this.phi))).getName());
-        }
 
+                System.out.println("Le gagnant par promethée est : " + this.data.getPeople_list()
+                                .get(this.phi.indexOf(Collections.max(this.phi))).getName());
+        }
 }
